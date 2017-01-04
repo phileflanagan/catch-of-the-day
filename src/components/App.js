@@ -25,10 +25,24 @@ class App extends Component {
       context: this,
       state: 'fishes'
     })
+
+    const localStorageRef = localStorage.getItem(
+      `order-${this.props.params.storeId}`
+    )
+    this.setState({
+      order: JSON.parse(localStorageRef)
+    })
   }
 
   componentWillUnmount() {
     base.removeBinding(this.ref);
+  }
+
+  componentWillUpdate(nextProps, nextState) {
+    localStorage.setItem(
+      `order-${this.props.params.storeId}`,
+      JSON.stringify(nextState.order)
+    )
   }
 
   loadSamples() {
@@ -67,8 +81,13 @@ class App extends Component {
             }
           </ul>
         </div>
-        <Order fishes={this.state.fishes} order={this.state.order} />
-        <Inventory addFish={this.addFish} loadSamples={this.loadSamples} />
+        <Order
+          fishes={this.state.fishes}
+          order={this.state.order}
+          params={this.props.params} />
+        <Inventory
+          addFish={this.addFish}
+          loadSamples={this.loadSamples} />
       </div>
     );
   }
