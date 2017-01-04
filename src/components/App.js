@@ -14,6 +14,7 @@ class App extends Component {
     this.loadSamples = this.loadSamples.bind(this);
     this.addFish = this.addFish.bind(this);
     this.updateFish = this.updateFish.bind(this);
+    this.removeFish = this.removeFish.bind(this);
     this.addToOrder = this.addToOrder.bind(this);
     this.state = {
       fishes: {},
@@ -65,6 +66,12 @@ class App extends Component {
     this.setState({ fishes });
   }
 
+  removeFish(key) {
+    const fishes = {...this.state.fishes};
+    fishes[key] = null;
+    this.setState({ fishes })
+  }
+
   addToOrder(key) {
     const order = {...this.state.order};
     order[key] = order[key] + 1 || 1;
@@ -96,6 +103,7 @@ class App extends Component {
           fishes={this.state.fishes}
           addFish={this.addFish}
           updateFish={this.updateFish}
+          removeFish={this.removeFish}
           loadSamples={this.loadSamples} />
       </div>
     );
