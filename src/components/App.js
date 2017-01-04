@@ -13,6 +13,7 @@ class App extends Component {
     super();
     this.loadSamples = this.loadSamples.bind(this);
     this.addFish = this.addFish.bind(this);
+    this.updateFish = this.updateFish.bind(this);
     this.addToOrder = this.addToOrder.bind(this);
     this.state = {
       fishes: {},
@@ -52,10 +53,16 @@ class App extends Component {
   }
 
   addFish(fish) {
-      const fishes = {...this.state.fishes};
-      const timestamp = Date.now();
-      fishes[`fish-${timestamp}`] = fish;
-      this.setState({ fishes });
+    const fishes = {...this.state.fishes};
+    const timestamp = Date.now();
+    fishes[`fish-${timestamp}`] = fish;
+    this.setState({ fishes });
+  }
+
+  updateFish(key, updatedFish) {
+    const fishes = {...this.state.fishes};
+    fishes[key] = updatedFish;
+    this.setState({ fishes });
   }
 
   addToOrder(key) {
@@ -86,7 +93,9 @@ class App extends Component {
           order={this.state.order}
           params={this.props.params} />
         <Inventory
+          fishes={this.state.fishes}
           addFish={this.addFish}
+          updateFish={this.updateFish}
           loadSamples={this.loadSamples} />
       </div>
     );
