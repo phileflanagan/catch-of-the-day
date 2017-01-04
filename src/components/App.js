@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import base from '../base';
+
 import sampleFishes from '../sample-fishes';
 import Header from './Header';
 import Order from './Order';
@@ -16,6 +18,17 @@ class App extends Component {
       fishes: {},
       order: {}
     };
+  }
+
+  componentWillMount() {
+    this.ref = base.syncState(`${this.props.params.storeId}/fishes`, {
+      context: this,
+      state: 'fishes'
+    })
+  }
+
+  componentWillUnmount() {
+    base.removeBinding(this.ref);
   }
 
   loadSamples() {
