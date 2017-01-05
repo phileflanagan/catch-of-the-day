@@ -21,3 +21,17 @@
     transform translateX(120%)
     max-height 0
     padding 0 !important
+
+.count-enter
+  transition all 0.25s
+  transform translateY(100%)
+  &.count-enter-active
+    transform translateY(0)
+
+.count-leave
+  transition all 0.25s
+  position absolute
+  left 0
+  bottom 0
+  &.count-leave-active
+    transform translateY(-100%)
